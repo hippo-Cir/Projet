@@ -18,10 +18,8 @@ LoginDialog::LoginDialog (QWidget *parent):QDialog(parent) {
 	baseEditLine = new QLineEdit;
 	baseEditLine->setText("plans");
 	userEditLine = new QLineEdit;
-	userEditLine->setText("hippo");
 	pwdEditLine = new QLineEdit;
 	pwdEditLine->setEchoMode(QLineEdit::Password);
-	pwdEditLine->setText("isen29");
 
 	// set up the layout
 	QGridLayout *formGridLayout = new QGridLayout;
