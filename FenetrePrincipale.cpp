@@ -19,10 +19,10 @@ FenetrePrincipale::FenetrePrincipale(Plan &plan_init) : plan(plan_init) {
 
 	qbl_general->addWidget(myview1);
 	barre_statut = statusBar();
-	
+
 	connect( myview1, &GrandeVue::coord_viewport, myview2, &MiniVue::trace_viewport);
 	connect( myview1, &GrandeVue::position, this, &FenetrePrincipale::affiche_pos_scene);
-	
+
 
 }
 
@@ -37,24 +37,13 @@ QGroupBox * FenetrePrincipale::creerGroupBoxInfos() {
 	QVBoxLayout *vbox = new QVBoxLayout;
 	gb->setLayout(vbox);
 
-	str_tmp = QString::fromStdString(std::to_string(plan.getIdPlan()));
-	QLabel *id_plan = new QLabel("Plan N°"+str_tmp);
-
-	str_tmp = QString::fromStdString(plan.getNomProjet());
-	QLabel *nom_projet = new QLabel(str_tmp);
-
-	str_tmp = QString::fromStdString(std::to_string(plan.getVersion()));
-	QLabel *version = new QLabel("Version "+str_tmp);
-
-	str_tmp = QString::fromStdString(plan.getDatePlan());
-	QLabel *date_plan = new QLabel(str_tmp);
 
 	myview2 = new MiniVue(myscene, this);
+	QPushButton *bouton1=new QPushButton("Calculer");
 
-	vbox->addWidget(id_plan);
-	vbox->addWidget(nom_projet);
-	vbox->addWidget(version);
-	vbox->addWidget(date_plan);
+
+
+	vbox->addWidget(bouton1);
 	vbox->addWidget(myview2);
 
 	return gb;
@@ -66,5 +55,3 @@ void FenetrePrincipale::affiche_pos_scene( QPointF p){
 			+ QString::number(p.y(),'f',2) + ")";
 	barre_statut->showMessage(msg);
 }
-
-

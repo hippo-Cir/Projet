@@ -7,6 +7,7 @@
 #include <QMainWindow>
 #include <QStatusBar>
 #include <QString>
+#include <QPushButton>
 
 #include "model/Plan.h"
 #include "ScenePlan.h"
@@ -32,6 +33,6 @@ class FenetrePrincipale : public QMainWindow {
 		Plan &plan;
 		int hauteur;
 		int largeur;
-		
+
 };
 #endif
