@@ -37,12 +37,12 @@ QGroupBox * FenetrePrincipale::creerGroupBoxInfos() {
 	QVBoxLayout *vbox = new QVBoxLayout;
 	gb->setLayout(vbox);
 
-
+	QTextEdit *text= new QTextEdit();
 	myview2 = new MiniVue(myscene, this);
 	QPushButton *bouton1=new QPushButton("Calculer");
 
 
-
+	vbox->addWidget(text);
 	vbox->addWidget(bouton1);
 	vbox->addWidget(myview2);
 
