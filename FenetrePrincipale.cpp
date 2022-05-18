@@ -36,20 +36,28 @@ QGroupBox * FenetrePrincipale::creerGroupBoxInfos() {
 
 	QVBoxLayout *vbox = new QVBoxLayout;
 	gb->setLayout(vbox);
-
-	QTextEdit *text= new QTextEdit();
+	QLabel *ville_dep = new QLabel(tr("Ville de départ"));
+	QLabel *ville_arr = new QLabel(tr("Ville d'arrivée"));
+	QLabel *Distance = new QLabel("Distance :");
+	QLineEdit *text= new QLineEdit();
+	QLineEdit *text2= new QLineEdit();
 	myview2 = new MiniVue(myscene, this);
 	QPushButton *bouton1=new QPushButton("Calculer");
 
+
+	vbox->addWidget(ville_dep);
 	vbox->addWidget(text);
+	vbox->addWidget(ville_arr);
+	vbox->addWidget(text2);
 	vbox->addWidget(bouton1);
+	vbox->addWidget(Distance);
 	vbox->addWidget(myview2);
 
 	return gb;
 }
 
 void FenetrePrincipale::affiche_pos_scene( QPointF p){
-	QString msg = "Coordonnées scène ("
+	QString msg = "Coordonnées géographiques ("
 			+ QString::number(p.x(),'f',2) + ","
 			+ QString::number(p.y(),'f',2) + ")";
 	barre_statut->showMessage(msg);

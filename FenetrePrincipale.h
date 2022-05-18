@@ -8,7 +8,7 @@
 #include <QStatusBar>
 #include <QString>
 #include <QPushButton>
-#include <QTextEdit>
+#include <QLineEdit>
 #include "model/Plan.h"
 #include "ScenePlan.h"
 #include "GrandeVue.h"
