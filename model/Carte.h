@@ -27,7 +27,7 @@ class Carte {
         std::vector<Route> &getRoutes(){
             return routes;
         }
-        std::vector<String> &getVilles(){
+        std::vector<Ville> &getVilles(){
             return villes;
         }
         void ajoutUnWaypoint(const Waypoint& wpt){
@@ -36,11 +36,8 @@ class Carte {
         void ajoutUneRoute(const Route& rt){
             routes.push_back(rt);
         }
-        void ajoutUneVille(Ville *){
-            villes.push_back();
-        }
-        void insereUneVille(Ville *){
-            villes.push_back();
+        void insereUneVille(Ville *vl){
+            villes.push_back(*vl);
         }
         void affiche() const{
             std::cout << "Carte :" << "\n";

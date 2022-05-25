@@ -28,7 +28,7 @@ class Ville : public Waypoints {
         void affiche() const{
             std::cout << "Ville code postal :" << code_postal << "(" << nb_habitants << ")"<< site << "\n";
             for ( auto &ville : ville ){
-                ville.affcihe();
+                ville.affiche();
             }
         }
 };

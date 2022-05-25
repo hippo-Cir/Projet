@@ -32,9 +32,9 @@ class Waypoint {
         }
         void affiche() const{
             std::cout << "Waypoint" << nom << "longitude" << lon << "latitude" << lat << "\n";
-            for ( auto &waypoint : waypoint ){
-                waypoint.affiche();
-            }
+        //    for ( auto &waypoint : waypoint ){
+        //        waypoint.affiche();
+        //    }
         }
 };
 #endif
