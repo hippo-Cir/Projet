@@ -15,95 +15,138 @@ BDD::~BDD(){
 	delete con;
 }
 
-Waypoint BDD::selectWaypoint(std::string nom){
-2
+// Waypoint BDD::selectWaypoint(std::string nom){
+//
+// 	sql::Statement *stmt = con->createStatement();
+// 	sql::ResultSet *res = stmt->executeQuery(
+// 					"select * from waypoint where nom="+std::to_string(nom) );
+// 	res->next();
+// 	Waypoint waypoint( res->getString(1), res->getDouble(2),
+// 						res->getDouble(3) );
+//
+// 	delete res;
+// 	delete stmt;
+//
+// 	return waypoint;
+// }
+
+// void BDD::insereCarte(Carte &carte){
+//
+// 	sql::Statement *stmt = con->createStatement();
+// 	// Ajoute une nouvelle carte
+// 	stmt->execute("INSERT INTO carte VALUES ('"
+// 			+carte.getContour()+","
+// 			+std::to_string(carte.getEchellelon())+")"
+// 			);
+// 	for ( auto &contour : carte.getContours() ){
+// 		// Ajout mur
+// 		// récup id_plan
+// 		sql::ResultSet *res = stmt->executeQuery("select last_insert_id()");
+// 		res->next();
+// 		int id = res->getInt(1);
+// 		delete res;
+//
+// 		// Ajout point
+// 		for ( auto &pt : contour.getPoints() ){
+// 		stmt->execute("INSERT INTO point VALUES ("
+// 				+std::to_string(pt.getNum())+","
+// 				+std::to_string(pt.getLat())+","
+// 				+std::to_string(pt.getLon())+")"
+// 				);
+// 		} // fin insert point
+//
+// 	} // fin insert mur
+//
+// 	delete stmt;
+// }
+//
+// void BDD::ajoutContours(Carte &carte){
+//
+// 	sql::Statement *stmt = con->createStatement();
+// 	sql::ResultSet *res = stmt->executeQuery(
+// 				"select * from contour");
+// 	while (res->next()) {
+// 		Point pt(res->getInt(1),res->getDouble(2),res->getDouble(3) );
+// 		contour.ajoutUnPoint(pt);
+// 	}
+// 	delete res;
+// 	delete stmt;
+// }
+//
+// void BDD::ajoutWaypoints(Carte &carte){
+//
+// 	sql::Statement *stmt = con->createStatement();
+// 	sql::ResultSet *res = stmt->executeQuery(
+// 				"select * from waypoint");
+// 	while (res->next()) {
+// 		Waypoint wpt(res->getString(1),res->getDouble(2),res->getDouble(3));
+// 		waypoints.ajoutUnWaypoint(wpt);
+// 	}
+// 	delete res;
+// 	delete stmt;
+// }
+//
+// void BDD::ajoutVilles(Carte &carte){
+//
+// 	sql::Statement *stmt = con->createStatement();
+// 	sql::ResultSet *res = stmt->executeQuery(
+// 				"select * from ville where nom=");
+// 	while (res->next()) {
+// 		carte.ajoutUneVille(Ville(res->getString(1),res->getString(2),res->getInt(3),res->getString(4) );
+// 	}
+// 	delete res;
+// 	delete stmt;
+// }
+//
+//
+// void BDD::ajoutRoutes(Carte &carte){
+//
+// 	sql::Statement *stmt = con->createStatement();
+// 	sql::ResultSet *res = stmt->executeQuery(
+// 				"select * from route where nom_debut=");
+// 	while (res->next()) {
+// 		Route rou(res->getString(1),res->getString(2),res->getInt(3) );
+// 	}
+// 	delete res;
+// 	delete stmt;
+// }
+
+void BDD::ajoutPointsContours(Contour &contour){
 	sql::Statement *stmt = con->createStatement();
 	sql::ResultSet *res = stmt->executeQuery(
-					"select * from waypoint where nom="+std::to_string(nom) );
-	res->next();
-	Waypoint waypoint( res->getString(1), res->getDouble(2),
-						res->getDouble(3) );
-
-	delete res;
-	delete stmt;
-
-	return waypoint;
-}
-/*
-void BDD::inserePlan(Plan &plan){
-
-	sql::Statement *stmt = con->createStatement();
-	// Ajout nouveau plan
-	stmt->execute("insert into plan values (null,'" // null => auto_increment
-			+plan.getNomProjet()+"',"
-			+std::to_string(plan.getVersion())+","
-			+std::to_string(plan.getOrientation())
-			+",sysdate())"
-			);
-	for ( auto &mur : plan.getMurs() ){
-		// Ajout mur
-		// récup id_plan
-		sql::ResultSet *res = stmt->executeQuery("select last_insert_id()");
-		res->next();
-		int id = res->getInt(1);		
-		delete res;
-		
-		stmt->execute("insert into mur values ("
-				+std::to_string(id)+",'"
-				+mur.getNomMur()+"','"
-				+mur.getCouleur()+"',"
-				+std::to_string(mur.getEpaisseur())+")"
-				);
-		// Ajout point
-		for ( auto &pt : mur.getPoints() ){
-		stmt->execute("insert into point values ("
-				+std::to_string(id)+",'"
-				+mur.getNomMur()+"',"
-				+std::to_string(pt.getNum())+","
-				+std::to_string(pt.getX())+","
-				+std::to_string(pt.getY())+")"
-				);
-		} // fin insert point
-
-	} // fin insert mur
-	
-	delete stmt;
+		"SELECT * FROM contour");
+	while(res->next()){
+		Point pt(res->getInt(1),res->getDouble(2),res->getDouble(3));
+		contour.ajoutUnPoint(pt);
+	}
 }
 
-void BDD::ajouterMurs(Plan &plan){
-
+void BDD::ajoutWaypoints(std::vector<Waypoint> &waypoints){
 	sql::Statement *stmt = con->createStatement();
 	sql::ResultSet *res = stmt->executeQuery(
-				"select * from mur where id_plan="
-					+ std::to_string(plan.getIdPlan()) );
-	while (res->next()) {
-		plan.ajoutUnMur(Mur(res->getInt(1),res->getString(2),res->getString(3),res->getDouble(4)) );
+		"SELECT * from waypoint");
+	while(res->next()){
+		Waypoint wpt(res->getString(1),res->getDouble(2),res->getDouble(3));
+		carte.ajoutUnWaypoint(wpt);
 	}
-	delete res;
-	delete stmt;
 }
-void BDD::ajouterPoints(Mur &mur){
 
+void BDD::ajoutRoutes(std::vector<Route> &routes){
 	sql::Statement *stmt = con->createStatement();
 	sql::ResultSet *res = stmt->executeQuery(
-				"select * from point where id_plan="
-						+ std::to_string(mur.getIdPlan())
-						+ " and nom_mur='"+mur.getNomMur()+"'"
-						+ " order by num" );
-	while (res->next()) {
-		Point pt (res->getInt(1),res->getString(2),res->getInt(3),res->getDouble(4),res->getDouble(5));
-		mur.ajoutUnPoint(pt);
+		"SELECT * from route");
+	while(res->next()){
+		Route rt(res->getInt(1),res->getInt(2),res->getInt(3));
+		carte.ajoutUneRoute(rt);
 	}
-	delete res;
-	delete stmt;
 }
 
-Plan BDD::getPlan(int id){
-	Plan plan = this->selectPlan(1);
-	this->ajouterMurs(plan);
-	for ( auto &mur : plan.getMurs() ){
-		this->ajouterPoints(mur);
+void BDD::ajoutVilles(std::vector<Ville> &villes){
+	sql::Statement *stmt = con->createStatement();
+	sql::ResultSet *res = stmt->executeQuery(
+		"SELECT * from ville");
+	while(res->next()){
+		Ville vl(res->getString(1),res->getInt(2),res->getString(3));
+		carte.insereUneVille(vl);
 	}
-	return plan;
 }
-*/

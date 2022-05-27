@@ -13,32 +13,25 @@
 int main(void){
     std::cout << "Lecture de carte" << std::endl;
     Carte carte;
-    std::vector<Mur>
+    std::vector<Contour> contour;
+    std::vector<Waypoint> waypoint;
 
     try{
-        BDD bdd("tcp://localhost:3306", "carte", "isen", "isen29");
-        carte = bdd.selectCarte(1);
-        bdd.ajoutUneRoute(carte);
-        bdd.ajoutUneVille(carte);
-        bdd.ajoutUnWaypoint(carte);
-        bdd.ajoutContour(carte);
+        BDD bdd("tcp://localhost:3306", "carte", "isen", "isen");
+        //carte = bdd.selectCarte(1);
+        // bdd.ajoutRoutes(carte);
+        // bdd.ajoutVilles(carte);
+        // bdd.ajoutWaypoints(carte);
+        // bdd.ajoutPointsContours(contour);
+    }
+    catch (sql::SQLException &e) {
+  		std::cout << "# ERR: " << e.what();
+  		std::cout << " (MySQL error code: " << e.getErrorCode();
+  		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+  	}
+  	catch(...){
+  		std::cout << "Exception non trapp�e"<<std::endl;
+  	}
 
-        for (auto &contour : carte.getWaypoints()){
-            bdd.ajoutPoints(contour);
-        }
-        for (auto &waypoint : carte.getWaypoints()){
-            bdd.ajoutVilles(waypoint);
-        }
-        carte.affcihe();
-    }
-    catch (sql::SQLException &e){
-        std::cout << "# ERR " << e.what();
-        std::cout << " (Mysql error code: " << e.getErrorCode();
-        std::cout << ", SQLState: " << e.getSQLState << " )" << std::endl;
-    }
-    catch(...){
-        std::cout << "Exception non trappe" << std::endl;
-    }
-    return EXIT_SUCCESS;
-}
-    
+  	return EXIT_SUCCESS;
+  }

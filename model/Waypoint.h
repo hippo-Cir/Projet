@@ -12,6 +12,7 @@ class Waypoint {
         std::string nom;
         float lon;
         float lat;
+        std::string infos;
     public :
         Waypoint (std::string nom="", float lon=0, float lat=0): nom(nom),lat(lat),lon(lon){
         }
@@ -32,9 +33,9 @@ class Waypoint {
         }
         void affiche() const{
             std::cout << "Waypoint" << nom << "longitude" << lon << "latitude" << lat << "\n";
-        //    for ( auto &waypoint : waypoint ){
-        //        waypoint.affiche();
-        //    }
+          //  for ( auto &waypoint : waypoints ){
+          //      waypoint.affiche();
+          //  }
         }
 };
 #endif

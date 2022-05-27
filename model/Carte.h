@@ -13,8 +13,13 @@ using namespace std;
 
 class Carte {
     private :
-
+      int contour;
+      float echelle_lon;
+      std::vector<Waypoint> waypoints;
+      std::vector<Route> routes;
+      std::vector<Ville> villes;
     public :
+
         int getContour()const{
             return contour;
         }
@@ -36,14 +41,14 @@ class Carte {
         void ajoutUneRoute(const Route& rt){
             routes.push_back(rt);
         }
-        void insereUneVille(Ville *vl){
-            villes.push_back(*vl);
+        void insereUneVille(Ville& vl){
+            villes.push_back(vl);
         }
         void affiche() const{
             std::cout << "Carte :" << "\n";
-            for ( auto &carte : carte ){
-                carte.affcihe();
-            }
+            // for ( auto &carte : carte ){
+            //     carte.affcihe();
+            // }
         }
 };
 #endif

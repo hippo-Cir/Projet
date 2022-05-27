@@ -10,13 +10,13 @@ using namespace std;
 
 class Contour {
     private:
-
+      std::vector<Point> points;
     public:
         std::vector<Point> &getPoints(){
             return points;
         }
         void ajoutUnPoint(const Point& pt){
-            waypoints.push_back(pt);
+          points.push_back(pt);
         }
 };
 #endif

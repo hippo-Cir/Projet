@@ -8,11 +8,13 @@
 
 using namespace std;
 
-class Ville : public Waypoints {
-    private : 
+class Ville : public Waypoint {
+    private :
        std::string code_postal;
        int nb_habitants;
-       std::string site; 
+       std::string site;
+       std::string infos;
+       std::vector<Ville> villes;
     public :
         Ville (std::string cp="", int nbh=0, std::string site=""): code_postal(cp), nb_habitants(nbh), site(site){
         }
@@ -27,7 +29,7 @@ class Ville : public Waypoints {
         }
         void affiche() const{
             std::cout << "Ville code postal :" << code_postal << "(" << nb_habitants << ")"<< site << "\n";
-            for ( auto &ville : ville ){
+            for ( auto &ville : villes ){
                 ville.affiche();
             }
         }

@@ -23,11 +23,11 @@ class BDD {
 		BDD (){}
 		~BDD();
 
-		Carte selectWaypoint(std::string nom);
-		void ajoutContour(Plan &plan);
-		void ajoutPoints(Mur &mur);
-		Plan getPlan(int id);
-		void inserePlan(Plan &plan);
+		void ajoutPointsContours(Contour &contour);
+		void ajoutRoutes(std::vector<Route> &routes);
+		void ajoutWaypoints(std::vector<Waypoint> &waypoints);
+		void ajoutVilles(std::vector<Ville> &villes);
+	//	void insereCarte(Carte &carte);
 
 	private :
 		Carte carte;
