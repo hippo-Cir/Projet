@@ -23,8 +23,8 @@ class BDD {
 		BDD (){}
 		~BDD();
 
-		void ajoutPointsContours(Contour &contour);
-		void ajoutRoutes(std::vector<Route> &routes);
+		void ajoutPoints(Contour &contour);
+		void ajoutRoutes(Carte& carte);
 		void ajoutWaypoints(std::vector<Waypoint> &waypoints);
 		void ajoutVilles(std::vector<Ville> &villes);
 	//	void insereCarte(Carte &carte);

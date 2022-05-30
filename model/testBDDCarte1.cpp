@@ -13,11 +13,17 @@
 int main(void){
     std::cout << "Lecture de carte" << std::endl;
     Carte carte;
-    std::vector<Contour> contour;
-    std::vector<Waypoint> waypoint;
+    Contour contour;
+    Route route;
 
     try{
         BDD bdd("tcp://localhost:3306", "carte", "isen", "isen");
+        contour = carte.getContour();
+        bdd.ajoutPoints(contour);
+        contour.affiche();
+        // route = carte.getRoutes();
+        // bdd.ajoutRoutes(carte);
+        // route.affiche();
         //carte = bdd.selectCarte(1);
         // bdd.ajoutRoutes(carte);
         // bdd.ajoutVilles(carte);

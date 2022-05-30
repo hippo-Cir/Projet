@@ -13,14 +13,14 @@ using namespace std;
 
 class Carte {
     private :
-      int contour;
+      Contour contour;
       float echelle_lon;
       std::vector<Waypoint> waypoints;
       std::vector<Route> routes;
       std::vector<Ville> villes;
     public :
 
-        int getContour()const{
+        Contour getContour(){
             return contour;
         }
         float getEchelleLon()const{
@@ -45,10 +45,10 @@ class Carte {
             villes.push_back(vl);
         }
         void affiche() const{
-            std::cout << "Carte :" << "\n";
-            // for ( auto &carte : carte ){
-            //     carte.affcihe();
-            // }
+            std::cout << "Carte :" <<"\n";
+            // //  for ( auto &contour : contour ){
+            // //      contour.affcihe();
+            // //  }
         }
 };
 #endif

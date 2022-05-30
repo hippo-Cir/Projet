@@ -24,5 +24,9 @@ class Point{
         float getLat()const {
             return lat;
         }
+        void affiche() const{
+            std::cout << "num :" << num << "lon :" << lon << "lat :" << lat << std::endl;
+        }
+
 };
 #endif

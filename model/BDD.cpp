@@ -111,7 +111,7 @@ BDD::~BDD(){
 // 	delete stmt;
 // }
 
-void BDD::ajoutPointsContours(Contour &contour){
+void BDD::ajoutPoints(Contour &contour){
 	sql::Statement *stmt = con->createStatement();
 	sql::ResultSet *res = stmt->executeQuery(
 		"SELECT * FROM contour");
@@ -131,7 +131,7 @@ void BDD::ajoutWaypoints(std::vector<Waypoint> &waypoints){
 	}
 }
 
-void BDD::ajoutRoutes(std::vector<Route> &routes){
+void BDD::ajoutRoutes(Carte& carte){
 	sql::Statement *stmt = con->createStatement();
 	sql::ResultSet *res = stmt->executeQuery(
 		"SELECT * from route");

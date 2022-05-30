@@ -4,7 +4,7 @@
 #include "LoginDialog.h"
 // includes MODEL
 #include <cppconn/exception.h>
-#include "model/Plan.h"
+#include "model/Carte.h"
 #include "model/BDD.h"
 
 int main(int argc, char **argv) {
@@ -19,13 +19,14 @@ int main(int argc, char **argv) {
 // Récupération des saisies après fermeture de la Dialog box
   dlg.getResult(host, base, user, pwd);*/
   std::cout << "Lecture base plans" << std::endl;
-  Waypoint waypoint;
+  Carte carte;
   try {
 // Connexion BD
     BDD bdd("tcp://"+host+":3306", base, user, pwd);
 // Récupération du plan
-    waypoint = bdd.getPlan(Rennes);
-    waypoint.affiche();
+    ajoutPoints();
+    carte = bdd.getContours(2);
+    carte.affiche();
   }
   catch (sql::SQLException &e) {
     std::cout << "Erreur MySQL. Sortie de l'application\n";
