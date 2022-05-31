@@ -1,0 +1,48 @@
+// includes VIEW
+#include <QApplication>
+#include <QMessageBox>
+#include "LoginDialog.h"
+#include "FenetrePrincipale.h"
+
+// includes MODEL
+#include <cppconn/exception.h>
+#include "model/Carte.h"
+#include "model/BDD.h"
+
+int main(int argc, char **argv) {
+
+	QApplication app(argc, argv);
+
+	LoginDialog dlg;
+	std::string host, base, user, pwd;
+
+	if ( ! dlg.exec() ){ // Ouverture de la boite de dialogue
+		std::cout << "Sortie de l'application\n";
+		return 1;
+	}
+	// R�cup�ration des saisies apr�s fermeture de la Dialog box
+	dlg.getResult(host, base, user, pwd);
+
+	std::cout << "Lecture base carte" << std::endl;
+	Carte carte;
+	Contour contour;
+	try {
+		// Connexion BD
+		BDD bdd("tcp://"+host+":3306", base, user, pwd);
+		// R�cup�ration du plan
+		contour=carte.getContour();
+		bdd.ajoutPoints(contour);
+		carte.setContour(contour);
+		carte.affiche();
+	}
+	catch (sql::SQLException &e) {
+		std::cout << "Erreur MySQL. Sortie de l'application\n";
+		QMessageBox msg( QMessageBox::Critical, "Erreur mySQL", e.what());
+		msg.exec();
+		return 1;
+	}
+
+	FenetrePrincipale mw (carte);
+	mw.show();
+	return app.exec();
+}
