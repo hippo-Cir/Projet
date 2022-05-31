@@ -29,7 +29,7 @@ BDD::~BDD(){
 //
 // 	return waypoint;
 // }
- 	Waypoint BDD::selectWaypoint(Carte &carte){
+ 	void BDD::selectWaypoint(Carte &carte){
 	sql::Statement *stmt = con->createStatement();
 	sql::ResultSet *res = stmt->executeQuery(
 				"select * from waypoint");

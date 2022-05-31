@@ -26,13 +26,16 @@ int main(int argc, char **argv) {
 	std::cout << "Lecture base carte" << std::endl;
 	Carte carte;
 	Contour contour;
+	std::vector<Waypoint *> waypoints;
 	try {
 		// Connexion BD
 		BDD bdd("tcp://"+host+":3306", base, user, pwd);
 		// R�cup�ration du plan
-		contour=carte.getContour();
+		contour = carte.getContour();
+		waypoints = carte.getWaypoints();
 		bdd.ajoutPoints(contour);
 		carte.setContour(contour);
+		bdd.selectWaypoint(carte);
 		carte.affiche();
 	}
 	catch (sql::SQLException &e) {

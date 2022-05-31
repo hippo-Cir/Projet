@@ -26,7 +26,7 @@ class BDD {
 		void ajoutRoutes(Carte& carte);
 	//	void ajoutWaypoints(std::vector<Waypoint> &waypoints);
 		void ajoutVilles(std::vector<Ville> &villes);
-		Waypoint selectWaypoint(Carte &carte);
+		void selectWaypoint(Carte &carte);
 	//	void insereCarte(Carte &carte);
 
 	private :

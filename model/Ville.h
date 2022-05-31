@@ -21,7 +21,7 @@ class Ville : public Waypoint {
         std::string getSite() const{
             return site;
         }
-        bool isVille(){
+        virtual bool isVille()const{
             return true;
         }
         std::string getInfos() const{

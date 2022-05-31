@@ -15,7 +15,6 @@ int main(void){
     Carte carte;
     Contour contour;
     Route route;
-    std::vector<Waypoint *> waypoint;
 
     try{
         BDD bdd("tcp://localhost:3306", "carte", "isen", "isen");
