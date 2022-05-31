@@ -16,12 +16,12 @@ LoginDialog::LoginDialog (QWidget *parent):QDialog(parent) {
 	hostEditLine = new QLineEdit;
 	hostEditLine->setText("localhost");
 	baseEditLine = new QLineEdit;
-	baseEditLine->setText("plans");
+	baseEditLine->setText("carte");
 	userEditLine = new QLineEdit;
-	userEditLine->setText("hippo");
+	userEditLine->setText("isen");
 	pwdEditLine = new QLineEdit;
 	pwdEditLine->setEchoMode(QLineEdit::Password);
-	pwdEditLine->setText("isen29");
+	pwdEditLine->setText("isen");
 
 
 	// set up the layout

@@ -5,86 +5,49 @@ std::map<std::string, QColor> SceneCarte::tab_couleurs = {{"rouge", Qt::red}, {"
 SceneCarte::SceneCarte(Carte &carte){
 	// Ajout des items graphiques dans la scène
 	creer_items(carte);
+	creer_waypoint(carte);
 }
 
 void SceneCarte::creer_items(Carte &carte){
-
+	Contour contour;
 	qreal epais = 0;// épaisseur contour
 	std::string text_tooltip;
+	contour = carte.getContour();
+	QColor coul = tab_couleurs["rouge"];
+	Point *points = contour.getPoints().data();
+	int nb_points = contour.getPoints().size();
+	std::cout<<nb_points<<std::endl;
 
-	for (auto &contour : carte.getContour() ){
-		QColor coul = tab_couleurs[Qt::green];
-		epais = 2;
-		Point *points = contour.getPoints().data();
-		int nb_points = contour.getPoints().size();
+	QGraphicsLineItem *ligne = nullptr;
 
-    if ( !nb_points ) continue;
+	for ( int i=0; i < nb_points-1; ++i ){
 
-		QGraphicsLineItem *ligne = nullptr;
+		ligne = new QGraphicsLineItem (points[i].getLat(),points[i].getLon(),points[i+1].getLat(), points[i+1].getLon());
+	//	line = QGraphicsPolygonItem* outlight = scene->addPolygon(QPolygonF(points),QPen(QColor(255,255,255,128)),QBrush(QColor(255,192+(rand()%64 - 32),0,96)));
 
-		for ( int i=0; i < nb_points-1; ++i ){
+		ligne->setPen(QPen(coul, 0, Qt::SolidLine));
 
-			ligne = new QGraphicsLineItem (points[i].getLon(),points[i].getLat(),points[i+1].getLon(), points[i+1].getLat());
-			ligne->setPen(QPen(coul, epais, Qt::SolidLine));
+		this->addItem(ligne);
 
-			std::string  text_tooltip = contour.getInfos();
+	} // fin création point
+}
+	void SceneCarte::creer_waypoint(Carte &carte){
+		std::vector<Waypoint *> waypoints = carte.getWaypoints();
+		qreal epaisseur=0;
+		std::string text_tooltip;
 
-			ligne->setToolTip(QString::fromStdString(text_tooltip));
+		QColor coul = tab_couleurs["green"];
+		epaisseur = 0.1;
+		for (auto &waypoints : carte.getWaypoints()){
 
-			this->addItem(ligne);
+			QGraphicsEllipseItem *point = new QGraphicsEllipseItem ( -epaisseur/2, -epaisseur/2, epaisseur, epaisseur);
+				point->setPos(waypoints->getLon(), waypoints->getLat());
+				point->setPen(QPen(coul,0,Qt::SolidLine));
+				point->setBrush(QBrush(coul,Qt::SolidPattern));
+				this->addItem(point);
 
-
-
-			QGraphicsEllipseItem *point = new QGraphicsEllipseItem ( -epais/2, -epais/2, epais, epais);
-
-			point->setPos(points[i].getLon(), points[i].getLat());
-
-			point->setPen(QPen(Qt::black,0,Qt::SolidLine));
-
-			point->setBrush(QBrush(Qt::gray,Qt::SolidPattern));
-
-
-
-			text_tooltip = points[i].getInfos();
-
-			point->setToolTip(QString::fromStdString(text_tooltip));
+		}
 
 
-
-			point->setParentItem(ligne);
-
-		} // fin création point
-
-		// Dernier point
-
-		QGraphicsEllipseItem *point = new QGraphicsEllipseItem ( -epais/2, -epais/2, epais, epais);
-
-		point->setPos(points[nb_points-1].getLon(), points[nb_points-1].getLat());
-
-		point->setPen(QPen(Qt::black,0,Qt::SolidLine));
-
-		point->setBrush(QBrush(Qt::gray,Qt::SolidPattern));
-
-
-		text_tooltip = points[nb_points-1].getInfos();
-
-		point->setToolTip(QString::fromStdString(text_tooltip));
-
-		point->setParentItem(ligne);
-
-
-	}// fin création contour
-
-	// Matérialisation du point origine de la scène (taille = épaisseur contour)
-
-	qreal taille_o = epais;
-
-	QGraphicsEllipseItem *origine = new QGraphicsEllipseItem(-taille_o/2,-taille_o/2,taille_o,taille_o);
-
-	origine->setPos(0,0);
-
-	origine->setPen(QPen(Qt::black,0,Qt::SolidLine));
-
-	this->addItem(origine);
-
+		 // fin création point
 }

@@ -2,12 +2,12 @@
 #define MINIVUE_H
 #include <QGraphicsView>
 
-#include "ScenePlan.h"
+#include "SceneCarte.h"
 
 class MiniVue : public QGraphicsView {
 	Q_OBJECT
 	public :
-		MiniVue(ScenePlan *scene, QWidget *w):QGraphicsView(scene, w){
+		MiniVue(SceneCarte *scene, QWidget *w):QGraphicsView(scene, w){
 			Q_UNUSED(scene);
 			scale(1, -1); // inversion des y
 		}
@@ -15,9 +15,9 @@ class MiniVue : public QGraphicsView {
 	public slots:
 		void trace_viewport( QRectF rect_viewport){
 			cadre = rect_viewport;
-			// doc QAbstractScrollArea (classe mère de QGraphicsView) : 
-			// Use viewport->update() to update the contents 
-			// of the viewport instead of update() as all painting 
+			// doc QAbstractScrollArea (classe mère de QGraphicsView) :
+			// Use viewport->update() to update the contents
+			// of the viewport instead of update() as all painting
 			// operations take place on the viewport.
 			viewport()->update();
 		}

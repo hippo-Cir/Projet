@@ -6,7 +6,7 @@
 
 // includes MODEL
 #include <cppconn/exception.h>
-#include "model/Plan.h"
+#include "model/Carte.h"
 #include "model/BDD.h"
 
 int main(int argc, char **argv) {
@@ -20,18 +20,20 @@ int main(int argc, char **argv) {
 		std::cout << "Sortie de l'application\n";
 		return 1;
 	}
-	// Récupération des saisies après fermeture de la Dialog box
+	// Rï¿½cupï¿½ration des saisies aprï¿½s fermeture de la Dialog box
 	dlg.getResult(host, base, user, pwd);
 
-	std::cout << "Lecture base plans" << std::endl;
-	Plan plan;
-
+	std::cout << "Lecture base carte" << std::endl;
+	Carte carte;
+	Contour contour;
 	try {
 		// Connexion BD
 		BDD bdd("tcp://"+host+":3306", base, user, pwd);
-		// Récupération du plan
-		plan = bdd.getPlan(1);
-		plan.affiche();
+		// Rï¿½cupï¿½ration du plan
+		contour=carte.getContour();
+		bdd.ajoutPoints(contour);
+		carte.setContour(contour);
+		carte.affiche();
 	}
 	catch (sql::SQLException &e) {
 		std::cout << "Erreur MySQL. Sortie de l'application\n";
@@ -39,9 +41,8 @@ int main(int argc, char **argv) {
 		msg.exec();
 		return 1;
 	}
-	
-	FenetrePrincipale mw ( plan );
-	mw.show();
 
+	FenetrePrincipale mw (carte);
+	mw.show();
 	return app.exec();
 }

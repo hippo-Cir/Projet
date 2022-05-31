@@ -15,20 +15,31 @@ BDD::~BDD(){
 	delete con;
 }
 
-// Waypoint BDD::selectWaypoint(std::string nom){
+// Waypoint BDD::selectWaypoint(){
 //
 // 	sql::Statement *stmt = con->createStatement();
 // 	sql::ResultSet *res = stmt->executeQuery(
-// 					"select * from waypoint where nom="+std::to_string(nom) );
+// 					"select * from waypoint" );
 // 	res->next();
-// 	Waypoint waypoint( res->getString(1), res->getDouble(2),
-// 						res->getDouble(3) );
+// 	Waypoint *waypoint( res->getString(1), res->getDouble(2),res->getDouble(3) );
+// 	carte.ajoutUnWaypoints(waypoint);
 //
 // 	delete res;
 // 	delete stmt;
 //
 // 	return waypoint;
 // }
+ 	Waypoint BDD::selectWaypoint(Carte &carte){
+	sql::Statement *stmt = con->createStatement();
+	sql::ResultSet *res = stmt->executeQuery(
+				"select * from waypoint");
+	while (res->next()) {
+		Waypoint *waypoint= new Waypoint(res->getString(1),res->getDouble(2),res->getDouble(3));
+		carte.ajoutUnWaypoint(waypoint);
+	}
+	delete res;
+	delete stmt;
+}
 
 // void BDD::insereCarte(Carte &carte){
 //
@@ -120,16 +131,16 @@ void BDD::ajoutPoints(Contour &contour){
 		contour.ajoutUnPoint(pt);
 	}
 }
-
-void BDD::ajoutWaypoints(std::vector<Waypoint> &waypoints){
-	sql::Statement *stmt = con->createStatement();
-	sql::ResultSet *res = stmt->executeQuery(
-		"SELECT * from waypoint");
-	while(res->next()){
-		Waypoint wpt(res->getString(1),res->getDouble(2),res->getDouble(3));
-		carte.ajoutUnWaypoint(wpt);
-	}
-}
+//
+// void BDD::ajoutWaypoints(std::vector<Waypoint> &waypoints){
+// 	sql::Statement *stmt = con->createStatement();
+// 	sql::ResultSet *res = stmt->executeQuery(
+// 		"SELECT * from waypoint");
+// 	while(res->next()){
+// 		Waypoint wpt(res->getString(1),res->getDouble(2),res->getDouble(3));
+// 		carte.ajoutUnWaypoint(wpt);
+// 	}
+// }
 
 void BDD::ajoutRoutes(Carte& carte){
 	sql::Statement *stmt = con->createStatement();
@@ -141,12 +152,12 @@ void BDD::ajoutRoutes(Carte& carte){
 	}
 }
 
-void BDD::ajoutVilles(std::vector<Ville> &villes){
-	sql::Statement *stmt = con->createStatement();
-	sql::ResultSet *res = stmt->executeQuery(
-		"SELECT * from ville");
-	while(res->next()){
-		Ville vl(res->getString(1),res->getInt(2),res->getString(3));
-		carte.insereUneVille(vl);
-	}
-}
+// void BDD::ajoutVilles(std::vector<Ville> &villes){
+// 	sql::Statement *stmt = con->createStatement();
+// 	sql::ResultSet *res = stmt->executeQuery(
+// 		"SELECT * from ville");
+// 	while(res->next()){
+// 		Ville vl(res->getString(1),res->getInt(2),res->getString(3));
+// 		carte.insereUneVille(vl);
+// 	}
+// }

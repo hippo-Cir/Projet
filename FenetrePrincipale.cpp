@@ -1,7 +1,7 @@
-﻿#include "FenetrePrincipale.h"
+#include "FenetrePrincipale.h"
 
 
-FenetrePrincipale::FenetrePrincipale(Plan &plan_init) : plan(plan_init) {
+FenetrePrincipale::FenetrePrincipale(Carte &carte_init) : carte(carte_init) {
 
 	widget_general = new QWidget;
 	QHBoxLayout * qbl_general = new QHBoxLayout;
@@ -12,8 +12,8 @@ FenetrePrincipale::FenetrePrincipale(Plan &plan_init) : plan(plan_init) {
 	hauteur = 400; // qApp->desktop()->screenGeometry().height() / 2;
 	setMinimumSize(largeur,hauteur);
 
-	myscene = new ScenePlan(plan);
-	myview1 = new GrandeVue(myscene, this, plan.getOrientation());
+	this->myscene = new SceneCarte(carte);
+	this->myview1 = new GrandeVue(myscene, this);
 
 	qbl_general->addWidget(creerGroupBoxInfos());
 
@@ -23,14 +23,13 @@ FenetrePrincipale::FenetrePrincipale(Plan &plan_init) : plan(plan_init) {
 	connect( myview1, &GrandeVue::coord_viewport, myview2, &MiniVue::trace_viewport);
 	connect( myview1, &GrandeVue::position, this, &FenetrePrincipale::affiche_pos_scene);
 
-
 }
 
 FenetrePrincipale::~FenetrePrincipale() {
 }
 
 QGroupBox * FenetrePrincipale::creerGroupBoxInfos() {
-	QGroupBox * gb = new QGroupBox(tr("Infos plan"));
+	QGroupBox * gb = new QGroupBox(tr("Infos carte"));
 	gb->setMaximumWidth(largeur/3);
 	QString str_tmp;
 

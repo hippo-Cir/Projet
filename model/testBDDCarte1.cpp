@@ -15,12 +15,16 @@ int main(void){
     Carte carte;
     Contour contour;
     Route route;
+    std::vector<Waypoint *> waypoint;
 
     try{
         BDD bdd("tcp://localhost:3306", "carte", "isen", "isen");
         contour = carte.getContour();
+        carte.getWaypoints();
         bdd.ajoutPoints(contour);
-        contour.affiche();
+        bdd.selectWaypoint(carte);
+      //  carte.affiche();
+      //  contour.affiche();
         // route = carte.getRoutes();
         // bdd.ajoutRoutes(carte);
         // route.affiche();

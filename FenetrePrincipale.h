@@ -9,15 +9,15 @@
 #include <QString>
 #include <QPushButton>
 #include <QLineEdit>
-#include "model/Plan.h"
-#include "ScenePlan.h"
+#include "model/Carte.h"
+#include "SceneCarte.h"
 #include "GrandeVue.h"
 #include "MiniVue.h"
 
 class FenetrePrincipale : public QMainWindow {
 	Q_OBJECT
 	public:
-		FenetrePrincipale(Plan &plan);
+		FenetrePrincipale(Carte &carte);
 		~FenetrePrincipale();
 	private:
 		QGroupBox * creerGroupBoxInfos();
@@ -25,12 +25,12 @@ class FenetrePrincipale : public QMainWindow {
 		void affiche_pos_scene( QPointF p);
 	private:
 		QWidget * widget_general;
-		ScenePlan *myscene;
+		SceneCarte *myscene;
 		GrandeVue *myview1;
 		MiniVue *myview2;
 		QStatusBar *barre_statut;
 
-		Plan &plan;
+		Carte &carte;
 		int hauteur;
 		int largeur;
 
