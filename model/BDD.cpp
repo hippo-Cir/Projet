@@ -45,11 +45,29 @@ void BDD::selectRoutes(Carte &carte){
 	sql::Statement *stmt = con->createStatement();
 	sql::ResultSet *res = stmt->executeQuery(
 				"select * from route");
+	int a;
+	int b;
+	int i_deb=0;
+	int i_fin=0;
 	while(res->next()){
-		sql::Statement *stmt = con->createStatement();
-		sql::ResultSet *res = stmt->executeQuery("select * from ville");
-		while(res)
+		 a=0;
+		 b=0;
+		sql::Statement *stmt2 = con->createStatement();
+		sql::ResultSet *res2 = stmt2->executeQuery("select * from ville");
+		while(res2->next()){
+			if(res->getString(1)==res2->getString(1)){
+				i_deb = a;
+			}
+			if(res->getString(2)==res2->getString(1)){
+				i_fin = b;
+			}
+			a++;
+			b++;
+		}
+		Route rt(i_deb,i_fin,res->getInt(3));
+		carte.ajoutUneRoute(rt);
 	}
+
 }
 // void BDD::insereCarte(Carte &carte){
 //

@@ -22,6 +22,10 @@ int main(void){
         carte.getWaypoints();
         bdd.ajoutPoints(contour);
         bdd.selectWaypoint(carte);
+        bdd.selectRoutes(carte);
+        for (auto &route :carte.getRoutes()){
+          route.affiche();
+        }
       //  carte.affiche();
       //  contour.affiche();
         // route = carte.getRoutes();
