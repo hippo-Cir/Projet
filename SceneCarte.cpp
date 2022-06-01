@@ -19,17 +19,18 @@ void SceneCarte::creer_items(Carte &carte){
 	Point *points = contour.getPoints().data();
 	int nb_points = contour.getPoints().size();
 	std::cout<<nb_points<<std::endl;
-
 	QVector<QPointF> polygone;
 
 	for ( int i=0; i < nb_points-1; ++i ){
 		polygone << QPointF(points[i].getLat(),points[i].getLon());
 	//	ligne = new QGraphicsLineItem(points[i].getLat(),points[i].getLon(),points[i+1].getLat(), points[i+1].getLon());
 	} // fin création point
-	QGraphicsPolygonItem* outlight = this->addPolygon(QPolygonF(polygone),QPen(QColor(255,255,255,128)),QBrush(QColor(255,192,0,96)));
+	polygone << QPointF(points[nb_points-1].getLat(),points[0].getLon());
+	QGraphicsPolygonItem* outlight = this->addPolygon(QPolygonF(polygone),QPen(QColor(1,1,1,128),0.02),QBrush(QColor(255,192,0,96)));
 }
+
 void SceneCarte::creer_waypoint(Carte &carte){
-			qreal epais_wpt=0;
+			qreal epais_wpt = 0;
 			epais_wpt = 0.1;
 			QColor couleur = tab_couleurs["noir"];
 			waypoints = carte.getWaypoints();
@@ -41,4 +42,12 @@ void SceneCarte::creer_waypoint(Carte &carte){
 					point->setBrush(QBrush(couleur,Qt::SolidPattern));
 					this->addItem(point);
 			}
+	}
+
+	void SceneCarte::creer_route(Carte &carte){
+		qreal epais_rt = 0.01
+		QColor couleur = tab_couleurs["noir"];
+		routes = carte.getRoutes();
+
+		for(auto &routes : carte.getRoutes())
 	}

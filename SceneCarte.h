@@ -15,5 +15,6 @@ class SceneCarte : public QGraphicsScene{
     private:
         static std::map<std::string, QColor> tab_couleurs;
         std::vector<Waypoint *> waypoints;
+        std::vector<Route> routes;
 };
 #endif

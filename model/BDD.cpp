@@ -41,6 +41,16 @@ BDD::~BDD(){
 	delete stmt;
 }
 
+void BDD::selectRoutes(Carte &carte){
+	sql::Statement *stmt = con->createStatement();
+	sql::ResultSet *res = stmt->executeQuery(
+				"select * from route");
+	while(res->next()){
+		sql::Statement *stmt = con->createStatement();
+		sql::ResultSet *res = stmt->executeQuery("select * from ville");
+		while(res)
+	}
+}
 // void BDD::insereCarte(Carte &carte){
 //
 // 	sql::Statement *stmt = con->createStatement();
