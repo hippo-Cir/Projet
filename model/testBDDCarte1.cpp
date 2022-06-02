@@ -20,13 +20,14 @@ int main(void){
         BDD bdd("tcp://localhost:3306", "carte", "isen", "isen");
         contour = carte.getContour();
         carte.getWaypoints();
+        carte.getRoutes();
         bdd.ajoutPoints(contour);
         bdd.selectWaypoint(carte);
         bdd.selectRoutes(carte);
         for (auto &route :carte.getRoutes()){
           route.affiche();
         }
-      //  carte.affiche();
+        //carte.affiche();
       //  contour.affiche();
         // route = carte.getRoutes();
         // bdd.ajoutRoutes(carte);

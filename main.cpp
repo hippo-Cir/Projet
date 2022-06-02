@@ -1,6 +1,8 @@
 // includes VIEW
 #include <QApplication>
 #include <QMessageBox>
+#include <QtGui>
+#include <QWizard>
 #include "LoginDialog.h"
 #include "FenetrePrincipale.h"
 
@@ -27,16 +29,20 @@ int main(int argc, char **argv) {
 	Carte carte;
 	Contour contour;
 	std::vector<Waypoint *> waypoints;
+	std::vector<Route> routes;
 	try {
 		// Connexion BD
 		BDD bdd("tcp://"+host+":3306", base, user, pwd);
 		// R�cup�ration du plan
-		contour = carte.getContour();
-		waypoints = carte.getWaypoints();
+		// contour = carte.getContour();
+		// waypoints = carte.getWaypoints();
+		// routes = carte.getRoutes();
 		bdd.ajoutPoints(contour);
 		carte.setContour(contour);
 		bdd.selectWaypoint(carte);
-		carte.affiche();
+		carte.getRoutes();
+		bdd.selectRoutes(carte);
+		//carte.affiche();
 	}
 	catch (sql::SQLException &e) {
 		std::cout << "Erreur MySQL. Sortie de l'application\n";
@@ -47,5 +53,8 @@ int main(int argc, char **argv) {
 
 	FenetrePrincipale mw (carte);
 	mw.show();
+	QWizard *wizard = new MyWizard();
+	wizard->show();
 	return app.exec();
+
 }

@@ -9,6 +9,9 @@
 #include <QString>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QWizard>
+#include <QtGui>
+#include <QApplication>
 #include "model/Carte.h"
 #include "SceneCarte.h"
 #include "GrandeVue.h"
@@ -21,8 +24,11 @@ class FenetrePrincipale : public QMainWindow {
 		~FenetrePrincipale();
 	private:
 		QGroupBox * creerGroupBoxInfos();
+
 	private slots:
 		void affiche_pos_scene( QPointF p);
+	//	void onAccepted();
+
 	private:
 		QWidget * widget_general;
 		SceneCarte *myscene;
@@ -35,4 +41,29 @@ class FenetrePrincipale : public QMainWindow {
 		int largeur;
 
 };
+
+class MyWizard : public QWizard
+{
+    Q_OBJECT
+
+public:
+    MyWizard(QWidget *parent = 0);
+
+    // Cette méthode virtuelle est appelée
+    // lorsque la boite de dialogue/wizard est
+    // validée
+    //void accept();
+
+public slots:
+    void onAccepted();
+};
+
+class MyPage : public QWizardPage
+{
+    Q_OBJECT
+public:
+    MyPage(QWidget *parent = 0);
+};
+
+
 #endif

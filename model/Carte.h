@@ -36,7 +36,7 @@ class Carte {
         void ajoutUnWaypoint(Waypoint *waypoint){
           waypoints.push_back(waypoint);
         }
-        std::vector<Route> &getRoutes(){
+        std::vector<Route> getRoutes(){
             return routes;
         }
         // std::vector<Ville> &getVilles(){

@@ -1,6 +1,7 @@
 #include "SceneCarte.h"
 #include <math.h>
 
+#define PI 3,14
 
 std::map<std::string, QColor> SceneCarte::tab_couleurs = {{"rouge", Qt::red}, {"vert", Qt::green}};
 
@@ -8,6 +9,7 @@ SceneCarte::SceneCarte(Carte &carte){
 	// Ajout des items graphiques dans la scène
 	creer_items(carte);
 	creer_waypoint(carte);
+	creer_route(carte);
 }
 
 void SceneCarte::creer_items(Carte &carte){
@@ -31,8 +33,8 @@ void SceneCarte::creer_items(Carte &carte){
 
 void SceneCarte::creer_waypoint(Carte &carte){
 			qreal epais_wpt = 0;
-			epais_wpt = 0.1;
-			QColor couleur = tab_couleurs["noir"];
+			epais_wpt = 0.06;
+			QColor couleur = Qt::blue;
 			waypoints = carte.getWaypoints();
 
 			for (auto &waypoints : carte.getWaypoints()){
@@ -45,9 +47,24 @@ void SceneCarte::creer_waypoint(Carte &carte){
 	}
 
 	void SceneCarte::creer_route(Carte &carte){
-		qreal epais_rt = 0.01
-		QColor couleur = tab_couleurs["noir"];
+		//qreal epais = 0.5;
+		QColor couleur = Qt::black;
 		routes = carte.getRoutes();
+		waypoints = carte.getWaypoints();
 
-		for(auto &routes : carte.getRoutes())
+		QGraphicsLineItem *ligne = nullptr;
+
+		for (auto &routes : carte.getRoutes()){
+			int i_deb = routes.getIDeb();
+			int i_fin = routes.getIFin();
+			std::cout << ":"<<i_deb << ":"<< i_fin << std::endl;
+
+			ligne = new QGraphicsLineItem (waypoints[i_deb]->getLat(),waypoints[i_deb]->getLon(),
+						  waypoints[i_fin]->getLat(), waypoints[i_fin]->getLon());
+			ligne->setPen(QPen(couleur, 0, Qt::SolidLine));
+
+			this->addItem(ligne);
+
+		}
+
 	}

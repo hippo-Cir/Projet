@@ -12,6 +12,7 @@ class SceneCarte : public QGraphicsScene{
         SceneCarte(Carte &);
         void creer_items(Carte &);
         void creer_waypoint(Carte &);
+        void creer_route(Carte &);
     private:
         static std::map<std::string, QColor> tab_couleurs;
         std::vector<Waypoint *> waypoints;

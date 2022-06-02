@@ -1,4 +1,7 @@
 #include "BDD.h"
+#include <math.h>
+
+#define PI 3,14
 
 BDD::BDD ( std::string host, std::string nomBDD, std::string login, std::string pwd){
 		/* Create a connection */
@@ -15,20 +18,7 @@ BDD::~BDD(){
 	delete con;
 }
 
-// Waypoint BDD::selectWaypoint(){
-//
-// 	sql::Statement *stmt = con->createStatement();
-// 	sql::ResultSet *res = stmt->executeQuery(
-// 					"select * from waypoint" );
-// 	res->next();
-// 	Waypoint *waypoint( res->getString(1), res->getDouble(2),res->getDouble(3) );
-// 	carte.ajoutUnWaypoints(waypoint);
-//
-// 	delete res;
-// 	delete stmt;
-//
-// 	return waypoint;
-// }
+
  	void BDD::selectWaypoint(Carte &carte){
 	sql::Statement *stmt = con->createStatement();
 	sql::ResultSet *res = stmt->executeQuery(
@@ -53,7 +43,7 @@ void BDD::selectRoutes(Carte &carte){
 		 a=0;
 		 b=0;
 		sql::Statement *stmt2 = con->createStatement();
-		sql::ResultSet *res2 = stmt2->executeQuery("select * from ville");
+		sql::ResultSet *res2 = stmt2->executeQuery("select * from waypoint");
 		while(res2->next()){
 			if(res->getString(1)==res2->getString(1)){
 				i_deb = a;
@@ -69,86 +59,6 @@ void BDD::selectRoutes(Carte &carte){
 	}
 
 }
-// void BDD::insereCarte(Carte &carte){
-//
-// 	sql::Statement *stmt = con->createStatement();
-// 	// Ajoute une nouvelle carte
-// 	stmt->execute("INSERT INTO carte VALUES ('"
-// 			+carte.getContour()+","
-// 			+std::to_string(carte.getEchellelon())+")"
-// 			);
-// 	for ( auto &contour : carte.getContours() ){
-// 		// Ajout mur
-// 		// récup id_plan
-// 		sql::ResultSet *res = stmt->executeQuery("select last_insert_id()");
-// 		res->next();
-// 		int id = res->getInt(1);
-// 		delete res;
-//
-// 		// Ajout point
-// 		for ( auto &pt : contour.getPoints() ){
-// 		stmt->execute("INSERT INTO point VALUES ("
-// 				+std::to_string(pt.getNum())+","
-// 				+std::to_string(pt.getLat())+","
-// 				+std::to_string(pt.getLon())+")"
-// 				);
-// 		} // fin insert point
-//
-// 	} // fin insert mur
-//
-// 	delete stmt;
-// }
-//
-// void BDD::ajoutContours(Carte &carte){
-//
-// 	sql::Statement *stmt = con->createStatement();
-// 	sql::ResultSet *res = stmt->executeQuery(
-// 				"select * from contour");
-// 	while (res->next()) {
-// 		Point pt(res->getInt(1),res->getDouble(2),res->getDouble(3) );
-// 		contour.ajoutUnPoint(pt);
-// 	}
-// 	delete res;
-// 	delete stmt;
-// }
-//
-// void BDD::ajoutWaypoints(Carte &carte){
-//
-// 	sql::Statement *stmt = con->createStatement();
-// 	sql::ResultSet *res = stmt->executeQuery(
-// 				"select * from waypoint");
-// 	while (res->next()) {
-// 		Waypoint wpt(res->getString(1),res->getDouble(2),res->getDouble(3));
-// 		waypoints.ajoutUnWaypoint(wpt);
-// 	}
-// 	delete res;
-// 	delete stmt;
-// }
-//
-// void BDD::ajoutVilles(Carte &carte){
-//
-// 	sql::Statement *stmt = con->createStatement();
-// 	sql::ResultSet *res = stmt->executeQuery(
-// 				"select * from ville where nom=");
-// 	while (res->next()) {
-// 		carte.ajoutUneVille(Ville(res->getString(1),res->getString(2),res->getInt(3),res->getString(4) );
-// 	}
-// 	delete res;
-// 	delete stmt;
-// }
-//
-//
-// void BDD::ajoutRoutes(Carte &carte){
-//
-// 	sql::Statement *stmt = con->createStatement();
-// 	sql::ResultSet *res = stmt->executeQuery(
-// 				"select * from route where nom_debut=");
-// 	while (res->next()) {
-// 		Route rou(res->getString(1),res->getString(2),res->getInt(3) );
-// 	}
-// 	delete res;
-// 	delete stmt;
-// }
 
 void BDD::ajoutPoints(Contour &contour){
 	sql::Statement *stmt = con->createStatement();
@@ -159,16 +69,6 @@ void BDD::ajoutPoints(Contour &contour){
 		contour.ajoutUnPoint(pt);
 	}
 }
-//
-// void BDD::ajoutWaypoints(std::vector<Waypoint> &waypoints){
-// 	sql::Statement *stmt = con->createStatement();
-// 	sql::ResultSet *res = stmt->executeQuery(
-// 		"SELECT * from waypoint");
-// 	while(res->next()){
-// 		Waypoint wpt(res->getString(1),res->getDouble(2),res->getDouble(3));
-// 		carte.ajoutUnWaypoint(wpt);
-// 	}
-// }
 
 void BDD::ajoutRoutes(Carte& carte){
 	sql::Statement *stmt = con->createStatement();
@@ -180,12 +80,6 @@ void BDD::ajoutRoutes(Carte& carte){
 	}
 }
 
-// void BDD::ajoutVilles(std::vector<Ville> &villes){
-// 	sql::Statement *stmt = con->createStatement();
-// 	sql::ResultSet *res = stmt->executeQuery(
-// 		"SELECT * from ville");
-// 	while(res->next()){
-// 		Ville vl(res->getString(1),res->getInt(2),res->getString(3));
-// 		carte.insereUneVille(vl);
-// 	}
-// }
+void BDD::fonctionCos(){
+	cos = cos(48° * PI/180)
+}

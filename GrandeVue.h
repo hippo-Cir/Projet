@@ -58,37 +58,30 @@ class GrandeVue : public QGraphicsView {
 			// re-propage l'évènement
 			QGraphicsView::mouseMoveEvent(event);
 		}
-		// void drawBackground( QPainter *painter, const QRectF &) override {
-		// 	//painter->save(); // pas utile
-		// 	painter->setWorldMatrixEnabled(false);// mettre en coords View (pixels)
-		// 	// Chargement image et rotation selon orientation plan
-		// 	QPixmap pixmap("north.png");
-		// 	QTransform matrice;
-		// 	matrice.rotate(orientation_nord);
-		// 	QPixmap pixmap2 = pixmap.transformed(matrice);
-    //
-		// 	painter->drawPixmap(viewport()->x(),viewport()->y(),pixmap2);
-		// 	painter->setWorldMatrixEnabled(true);
-		// 	//painter->restore();  // pas utile
-		// }
-		// void drawForeground( QPainter *painter, const QRectF &) override {
-		// 	//painter->save();  // pas utile
-		// 	painter->setWorldMatrixEnabled(false);// mettre en coords View (pixels)
-		// 	painter->setPen(QPen(Qt::black, 0));
-		// 	qreal echelle = this->transform().m11();
-		// 	int x2 = viewport()->x()+viewport()->width()-10;
-		// 	int y2 = viewport()->y()+viewport()->height()-10;
-		// 	int x1 = x2 - echelle;
-		// 	int y1 = y2;
-		// 	int longueur_tick = qMin(static_cast<int>(echelle/10),5);
-		// 	painter->drawLine(x1,y1,x2,y2);
-		// 	painter->drawLine(x1,y1-longueur_tick,x1,y1+longueur_tick);
-		// 	painter->drawLine(x2,y2-longueur_tick,x2,y2+longueur_tick);
-		// 	QRectF rect_texte(x1, y1-30, x2-x1, 20 );
-		// 	painter->drawText(rect_texte, Qt::AlignCenter|Qt::TextDontClip,"10 Km");
-		// 	painter->setWorldMatrixEnabled(true);
-		// 	//painter->restore();  // pas utile
-		// }
+		void drawBackground( QPainter *painter, const QRectF &) override {
+			painter->setWorldMatrixEnabled(false);// mettre en coords View (pixels)
+			// Chargement image et rotation selon orientation plan
+			QPixmap pixmap("north.png");
+			QTransform matrice;
+			painter->drawPixmap(viewport()->x(),viewport()->y(),pixmap);
+			painter->setWorldMatrixEnabled(true);
+		}
+		void drawForeground( QPainter *painter, const QRectF &) override {
+			painter->setWorldMatrixEnabled(false);// mettre en coords View (pixels)
+			painter->setPen(QPen(Qt::black, 0));
+			qreal echelle = this->transform().m11();
+			int x2 = viewport()->x()+viewport()->width()-10;
+			int y2 = viewport()->y()+viewport()->height()-10;
+			int x1 = x2 - echelle;
+			int y1 = y2;
+			int longueur_tick = qMin(static_cast<int>(echelle/10),5);
+			painter->drawLine(x1,y1,x2,y2);
+			painter->drawLine(x1,y1-longueur_tick,x1,y1+longueur_tick);
+			painter->drawLine(x2,y2-longueur_tick,x2,y2+longueur_tick);
+			QRectF rect_texte(x1, y1-30, x2-x1, 20 );
+			painter->drawText(rect_texte, Qt::AlignCenter|Qt::TextDontClip,"10 Km");
+			painter->setWorldMatrixEnabled(true);
+		}
 	private:
 
 };
