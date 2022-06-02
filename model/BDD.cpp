@@ -1,7 +1,4 @@
 #include "BDD.h"
-#include <math.h>
-
-#define PI 3,14
 
 BDD::BDD ( std::string host, std::string nomBDD, std::string login, std::string pwd){
 		/* Create a connection */
@@ -18,68 +15,40 @@ BDD::~BDD(){
 	delete con;
 }
 
-
- 	void BDD::selectWaypoint(Carte &carte){
-	sql::Statement *stmt = con->createStatement();
-	sql::ResultSet *res = stmt->executeQuery(
-				"select * from waypoint");
-	while (res->next()) {
-		Waypoint *waypoint= new Waypoint(res->getString(1),res->getDouble(2),res->getDouble(3));
+void BDD::selectWaypoint(Carte &carte){
+	stmt_waypoint = con->createStatement();
+	res_waypoint = stmt_waypoint->executeQuery("SELECT * FROM waypoint");
+	while (res_waypoint->next()) {
+		Waypoint *waypoint= new Waypoint(res_waypoint->getString(1),res_waypoint->getDouble(2),res_waypoint->getDouble(3));
 		carte.ajoutUnWaypoint(waypoint);
 	}
-	delete res;
-	delete stmt;
 }
 
 void BDD::selectRoutes(Carte &carte){
-	sql::Statement *stmt = con->createStatement();
-	sql::ResultSet *res = stmt->executeQuery(
-				"select * from route");
-	int a;
-	int b;
-	int i_deb=0;
-	int i_fin=0;
-	while(res->next()){
-		 a=0;
-		 b=0;
-		sql::Statement *stmt2 = con->createStatement();
-		sql::ResultSet *res2 = stmt2->executeQuery("select * from waypoint");
-		while(res2->next()){
-			if(res->getString(1)==res2->getString(1)){
-				i_deb = a;
+	stmt_route = con->createStatement();
+	res_route = stmt_route->executeQuery("SELECT * FROM route");
+	int x, y;
+	int i_deb=0, i_fin=0;
+	while(res_route->next()){
+		 x=0, y=0;
+		stmt_waypoint = con->createStatement();
+		res_waypoint = stmt_waypoint->executeQuery("SELECT * FROM waypoint");
+		while(res_waypoint->next()){
+			if(res_route->getString(1)==res_waypoint->getString(1) && res_route->getString(2)==res_waypoint->getString(1)){
+				i_deb = x, i_fin = y;
 			}
-			if(res->getString(2)==res2->getString(1)){
-				i_fin = b;
-			}
-			a++;
-			b++;
+			x++, y++;
 		}
-		Route rt(i_deb,i_fin,res->getInt(3));
+		Route rt(i_deb,i_fin,res_route->getInt(3));
 		carte.ajoutUneRoute(rt);
 	}
-
 }
 
 void BDD::ajoutPoints(Contour &contour){
-	sql::Statement *stmt = con->createStatement();
-	sql::ResultSet *res = stmt->executeQuery(
-		"SELECT * FROM contour");
-	while(res->next()){
-		Point pt(res->getInt(1),res->getDouble(2),res->getDouble(3));
+	stmt_point = con->createStatement();
+	res_point = stmt_point->executeQuery("SELECT * FROM contour");
+	while(res_point->next()){
+		Point pt(res_point->getInt(1),res_point->getDouble(2),res_point->getDouble(3));
 		contour.ajoutUnPoint(pt);
 	}
-}
-
-void BDD::ajoutRoutes(Carte& carte){
-	sql::Statement *stmt = con->createStatement();
-	sql::ResultSet *res = stmt->executeQuery(
-		"SELECT * from route");
-	while(res->next()){
-		Route rt(res->getInt(1),res->getInt(2),res->getInt(3));
-		carte.ajoutUneRoute(rt);
-	}
-}
-
-void BDD::fonctionCos(){
-	cos = cos(48° * PI/180)
 }

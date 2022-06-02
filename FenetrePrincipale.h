@@ -27,7 +27,6 @@ class FenetrePrincipale : public QMainWindow {
 
 	private slots:
 		void affiche_pos_scene( QPointF p);
-	//	void onAccepted();
 
 	private:
 		QWidget * widget_general;
@@ -48,11 +47,6 @@ class MyWizard : public QWizard
 
 public:
     MyWizard(QWidget *parent = 0);
-
-    // Cette méthode virtuelle est appelée
-    // lorsque la boite de dialogue/wizard est
-    // validée
-    //void accept();
 
 public slots:
     void onAccepted();

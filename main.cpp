@@ -34,15 +34,11 @@ int main(int argc, char **argv) {
 		// Connexion BD
 		BDD bdd("tcp://"+host+":3306", base, user, pwd);
 		// R�cup�ration du plan
-		// contour = carte.getContour();
-		// waypoints = carte.getWaypoints();
-		// routes = carte.getRoutes();
 		bdd.ajoutPoints(contour);
 		carte.setContour(contour);
 		bdd.selectWaypoint(carte);
 		carte.getRoutes();
 		bdd.selectRoutes(carte);
-		//carte.affiche();
 	}
 	catch (sql::SQLException &e) {
 		std::cout << "Erreur MySQL. Sortie de l'application\n";

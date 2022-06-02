@@ -27,16 +27,6 @@ int main(void){
         for (auto &route :carte.getRoutes()){
           route.affiche();
         }
-        //carte.affiche();
-      //  contour.affiche();
-        // route = carte.getRoutes();
-        // bdd.ajoutRoutes(carte);
-        // route.affiche();
-        //carte = bdd.selectCarte(1);
-        // bdd.ajoutRoutes(carte);
-        // bdd.ajoutVilles(carte);
-        // bdd.ajoutWaypoints(carte);
-        // bdd.ajoutPointsContours(contour);
     }
     catch (sql::SQLException &e) {
   		std::cout << "# ERR: " << e.what();
