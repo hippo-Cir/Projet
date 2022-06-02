@@ -18,24 +18,21 @@
 #include "Waypoint.h"
 
 class BDD {
-	private :
-		Carte carte;
-		sql::Connection *con;
-		sql::Statement *stmt_route;
-		sql::ResultSet *res_route;
-		sql::Statement *stmt_waypoint;
-		sql::ResultSet *res_waypoint;
-		sql::Statement *stmt_point;
-		sql::ResultSet *res_point;
-
 	public :
 		BDD ( std::string host, std::string nomBDD, std::string login, std::string pwd);
 		BDD (){}
 		~BDD();
 		void ajoutPoints(Contour &contour);
+		void ajoutRoutes(Carte& carte);
+	//	void ajoutWaypoints(std::vector<Waypoint> &waypoints);
 		void ajoutVilles(std::vector<Ville> &villes);
 		void selectWaypoint(Carte &carte);
 		void selectRoutes(Carte &carte);
+		void fonctionCos();
+	//	void insereCarte(Carte &carte);
 
+	private :
+		Carte carte;
+		sql::Connection *con;
 };
 #endif
