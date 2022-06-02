@@ -27,26 +27,27 @@ FenetrePrincipale::~FenetrePrincipale() {}
 
 QGroupBox * FenetrePrincipale::creerGroupBoxInfos() {
 	QGroupBox * gb = new QGroupBox(tr("Infos carte"));
+	//Taille groupBox
 	gb->setMaximumWidth(largeur/3);
 	QString str_tmp;
 
 	QVBoxLayout *vbox = new QVBoxLayout;
 	gb->setLayout(vbox);
-
+	//saisie ville de départ
 	QLabel *ville_dep = new QLabel(tr("Ville de départ"));
 	QLineEdit *depEdit = new QLineEdit;
 	ville_dep->setBuddy(depEdit);
-
+	//saisie ville d'arrivée
 	QLabel *ville_arr = new QLabel(tr("Ville d'arrivée"));
 	QLineEdit *arrEdit = new QLineEdit;
 	ville_arr->setBuddy(arrEdit);
-
+	//affichage de la Distance entre la ville de départ et d'arrivée
 	QLabel *Distance = new QLabel("Distance :");
 	QLineEdit *text= new QLineEdit();
 	QLineEdit *text2= new QLineEdit();
 	myview2 = new MiniVue(myscene, this);
 	QPushButton *bouton1=new QPushButton("Calculer");
-
+	//ajout des widgets
 	vbox->addWidget(ville_dep);
 	vbox->addWidget(text);
 	vbox->addWidget(ville_arr);
@@ -59,6 +60,7 @@ QGroupBox * FenetrePrincipale::creerGroupBoxInfos() {
 }
 
 void FenetrePrincipale::affiche_pos_scene( QPointF p){
+	//affichage des coord géo de la souris
 	QString msg = "Coordonnées géographiques ("
 			+ QString::number(p.x(),'f',2) + ","
 			+ QString::number(p.y(),'f',2) + ")";
