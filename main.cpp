@@ -40,13 +40,14 @@ int main(int argc, char **argv) {
 		carte.getRoutes();
 		bdd.selectRoutes(carte);
 	}
+	//Traitement des erreurs de connection
 	catch (sql::SQLException &e) {
 		std::cout << "Erreur MySQL. Sortie de l'application\n";
 		QMessageBox msg( QMessageBox::Critical, "Erreur mySQL", e.what());
 		msg.exec();
 		return 1;
 	}
-
+	//affichage de la fenetre principale apres la connection
 	FenetrePrincipale mw (carte);
 	mw.show();
 	QWizard *wizard = new MyWizard();
