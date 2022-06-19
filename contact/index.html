@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<link rel="stylesheet" href="contact.css" />
+		<script type="text/javascript" src="contact.js"></script>
+	</head>
+	<body>
+		<div id="box">
+		  <form id="form" action="index.php" enctype="multipart/form-data" onsubmit="return validate()" method="post">
+		    <h3>Formulaire de contact</h3>
+		    <label>Nom: <span>*</span></label>
+		    <input type="text" id="name" name="name" placeholder="Nom"/>
+		    <label>Email: <span>*</span></label><span id="info" class="info"></span>
+		    <input type="text" id="email" name="email" placeholder="Email"/>
+		    <label>Sujet: <span>*</span></label>
+		    <input type="text" id="subject" name="subject" placeholder="Demande de renseignement"/>
+		    <label>Message:</label>
+		    <textarea id="message" name="message" placeholder="Message..."></textarea>
+		    <input type="submit" name="send" value="Envoyer le message"/>
+			<div id="statusMessage"> 
+            </div>
+		  </form>
+	    </div>
+		 <h3>Visitez notre site <a href="https://waytolearnx.com/">www.waytolearnx.com</a> pour plus de tutoriels.</h3>
+	</body>
+</html>
